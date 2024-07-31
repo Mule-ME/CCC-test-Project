@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, MouseEvent } from "react";
 import {
   AppBar as DefaultAppBar,
   ListItemIcon,
@@ -11,21 +11,31 @@ import {
   Button,
   Tooltip,
   MenuItem,
+  Breadcrumbs,
 } from "@mui/material";
-import { appBarLeftMenu, appBarProfileMenu, appBarRightMenu } from "./config";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
+import { appBarProfileMenu, appBarRightMenu } from "./config";
 import { Settings } from "@mui/icons-material";
+import { PopoverMenu } from "components/core";
 
 function AppBar() {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const [showPopover, setShowPopover] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [selectedProject, setSelectedProject] = useState("Default project");
+
+  const handleButtonClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setShowPopover((prev) => !prev);
   };
 
   return (
@@ -41,23 +51,43 @@ function AppBar() {
               F
             </Avatar>
           </IconButton>
-
-          {appBarLeftMenu?.map((menu) => (
+          <Breadcrumbs
+            aria-label="breadcrumb"
+            sx={{ ".MuiBreadcrumbs-separator": { color: "#fff" } }}
+          >
             <Button sx={{ textTransform: "capitalize" }}>
               <Typography color="#fff" sx={{ fontSize: 15 }}>
-                {menu?.title}
+                Fingaroo
               </Typography>
               <ListItemIcon sx={{ minWidth: "unset", ml: 1 }}>
-                {menu?.icon}
+                <UnfoldMoreIcon fontSize="small" sx={{ color: "#fff" }} />
               </ListItemIcon>
-              {/* {menu?.separator} */}
             </Button>
-          ))}
+            <Button
+              sx={{ textTransform: "capitalize" }}
+              onClick={handleButtonClick}
+            >
+              <Typography color="#fff" sx={{ fontSize: 15 }}>
+                {selectedProject}
+              </Typography>
+              <ListItemIcon sx={{ minWidth: "unset", ml: 1 }}>
+                <UnfoldMoreIcon fontSize="small" sx={{ color: "#fff" }} />
+              </ListItemIcon>
+            </Button>
+          </Breadcrumbs>
+          <PopoverMenu
+            showPopover={showPopover}
+            setShowPopover={setShowPopover}
+            anchorEl={anchorEl}
+            setAnchorEl={setAnchorEl}
+            selectedProject={selectedProject}
+            setSelectedProject={setSelectedProject}
+          />
         </Box>
 
         <Box sx={{ flexGrow: 0 }}>
           {appBarRightMenu?.map((rightMenu) => (
-            <Button sx={{ textTransform: "capitalize" }}>
+            <Button sx={{ textTransform: "capitalize" }} key={rightMenu.title}>
               <Typography color="#fff" sx={{ fontSize: 15 }}>
                 {rightMenu?.title}
               </Typography>

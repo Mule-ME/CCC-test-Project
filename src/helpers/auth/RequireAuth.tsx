@@ -1,15 +1,15 @@
-import { Navigate, useLocation, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { IRequireAuth } from "../types";
 
-function RequireAuth({ children }) {
+const RequireAuth = ({ children }: IRequireAuth) => {
   const token = localStorage.getItem("accessToken");
   const location = useLocation();
 
   if (!token) {
-    // Redirect them to the /login page
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return children ? children : <Outlet />;
-}
+  return children ? <>{children}</> : <Outlet />;
+};
 
 export default RequireAuth;

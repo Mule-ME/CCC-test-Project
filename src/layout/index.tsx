@@ -1,46 +1,39 @@
 import { ILayout } from "./types";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import { SideBar } from "components/layouts";
+import { AppBar, SideBar } from "components/layouts";
 
 const Root = styled("div")({
   display: "flex",
-});
-
-const Main = styled("div")({
-  backgroundColor: "#eff2f3",
+  height: "100vh",
 });
 
 const Page = styled("div")({
   flexGrow: 1,
   backgroundColor: "#eff2f3",
-});
-
-const Drawer = styled("div")({
-  position: "fixed",
-  backgroundColor: "#eff2f3",
-});
-
-const Nav = styled("div")({
-  height: 10,
-  marginBottom: 60,
-  width: "100%",
+  padding: "16px",
+  marginTop: "64px",
+  boxSizing: "border-box",
 });
 
 const Layout = ({ children, ...rest }: ILayout) => {
+  const token = localStorage.getItem("accessToken");
+
   return (
     <Box>
-      <Grid container justifyContent="center">
-        <Grid justifyContent="center" item xs={12}>
-          <Root>
-            <SideBar />
-            <Page>
-              <Nav></Nav>
-              {children}
-            </Page>
-          </Root>
+      {!token ? (
+        <Box>{children}</Box>
+      ) : (
+        <Grid container justifyContent="center">
+          <Grid justifyContent="center" item xs={12}>
+            <Root>
+              <AppBar />
+              <SideBar />
+              <Page>{children}</Page>
+            </Root>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };

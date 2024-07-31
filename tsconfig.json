@@ -37,7 +37,8 @@
       "utils/*": ["./utils/*"],
       "layout/*": ["./layout/*"],
       "hooks/*": ["./hooks/*"],
-      "models/*": ["./models/*"]
+      "models/*": ["./models/*"],
+      "helpers": ["./helpers/*"]
     }
   },
   "include": ["src"],
