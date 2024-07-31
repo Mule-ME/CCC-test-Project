@@ -2,17 +2,18 @@ import { useState } from "react";
 import {
   Box,
   Drawer,
-  CssBaseline,
   List,
   ListItemButton,
   Collapse,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { sideBarResources } from "./config";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [open, setOpen] = useState<Record<string, string | null>>({
     parent: null,
     child: null,
@@ -40,36 +41,47 @@ const SideBar = () => {
     navigate(path);
   };
 
+  const drawerWidth = 240;
+  const drawerStyles = {
+    width: drawerWidth,
+    flexShrink: 0,
+    "& .MuiDrawer-paper": {
+      width: drawerWidth,
+      boxSizing: "border-box",
+      marginTop: 8,
+      backgroundColor: theme.palette.secondary.main,
+    },
+  };
+
+  const listStyles = {
+    width: "100%",
+    maxWidth: 360,
+    bgcolor: theme.palette.secondary.main,
+  };
+
+  const listItemButtonStyles = (isActive: boolean, hasPadding = false) => ({
+    backgroundColor: isActive ? theme.palette.grey[100] : "transparent",
+    padding: hasPadding ? 2 : undefined,
+    borderRadius: hasPadding ? 1 : undefined,
+  });
+
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <Drawer
-        sx={{
-          width: 240,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: 240,
-            boxSizing: "border-box",
-            marginTop: 8,
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
+    <Box
+      sx={{
+        display: "flex",
+        borderRight: "#000 1px solid",
+        backgroundColor: theme.palette.secondary.main,
+      }}
+    >
+      <Drawer sx={drawerStyles} variant="permanent" anchor="left">
         {sideBarResources.map((res, index) => (
-          <List
-            key={index}
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-            component="nav"
-          >
+          <List key={index} sx={listStyles} component="nav">
             <ListItemButton
               onClick={() => handleClick(res.title)}
-              sx={{
-                backgroundColor:
-                  open.parent === res.title && !isChildActive(res.title)
-                    ? "rgba(0, 0, 0, 0.08)"
-                    : "transparent",
-              }}
+              sx={listItemButtonStyles(
+                open.parent === res.title && !isChildActive(res.title),
+                true
+              )}
             >
               {res.icon}
               <Typography sx={{ fontSize: 15, pl: 2 }}>{res.title}</Typography>
@@ -88,13 +100,10 @@ const SideBar = () => {
                         handleClick(`${res.title}-${child.title}`, true);
                         handleNavigate(child.path);
                       }}
-                      sx={{
-                        pl: 5,
-                        backgroundColor:
-                          open.child === `${res.title}-${child.title}`
-                            ? "rgba(0, 0, 0, 0.08)"
-                            : "transparent",
-                      }}
+                      sx={listItemButtonStyles(
+                        open.child === `${res.title}-${child.title}`,
+                        false
+                      )}
                     >
                       <Typography sx={{ fontSize: 14, pl: 2 }}>
                         {child.title}

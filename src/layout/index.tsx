@@ -10,8 +10,6 @@ const Root = styled("div")({
 
 const Page = styled("div")({
   flexGrow: 1,
-  backgroundColor: "#eff2f3",
-  padding: "16px",
   marginTop: "64px",
   boxSizing: "border-box",
 });

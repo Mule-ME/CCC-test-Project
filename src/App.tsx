@@ -41,4 +41,3 @@ function App() {
 
 export default App;
 
-//             <Route index element={<Navigate to="/chat" replace />} />
