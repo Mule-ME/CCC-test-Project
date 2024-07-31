@@ -25,6 +25,7 @@ export default defineConfig({
       utils: "/src/utils",
       hooks: "/src/hooks",
       models: "/src/models",
+      helpers: "/src/helpers",
     },
   },
 });

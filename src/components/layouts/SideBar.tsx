@@ -9,40 +9,40 @@ import {
   Typography,
 } from "@mui/material";
 import { sideBarResources } from "./config";
-import AppBar from "./AppBar";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
-  // const [open, setOpen] = useState<Record<string, boolean>>({});
+  const navigate = useNavigate();
+  const [open, setOpen] = useState<Record<string, string | null>>({
+    parent: null,
+    child: null,
+  });
 
-  // const handleClick = (title: string) => {
-  //   setOpen((prevOpen: Record<string, boolean>) => ({
-  //     ...prevOpen,
-  //     [title]: !prevOpen[title],
-  //   }));
-  // };
-
-  const [open, setOpen] = useState<Record<string, boolean>>(
-    sideBarResources.reduce((acc, resource) => {
-      acc[resource.title] = false;
-      return acc;
-    }, {} as Record<string, boolean>)
-  );
-
-  const handleClick = (title: string) => {
-    setOpen((prevOpen: Record<string, boolean>) => {
-      const newOpen: Record<string, boolean> = {};
-      for (const key in prevOpen) {
-        newOpen[key] = key === title ? !prevOpen[key] : false;
+  const handleClick = (title: string, isChild: boolean = false) => {
+    setOpen((prevOpen) => {
+      const newOpen = { ...prevOpen };
+      if (isChild) {
+        newOpen.child = prevOpen.child === title ? null : title;
+      } else {
+        newOpen.parent = prevOpen.parent === title ? null : title;
+        newOpen.child = null;
+        navigate("/");
       }
       return newOpen;
     });
   };
 
+  const isChildActive = (parentTitle: string) => {
+    return open.child?.startsWith(`${parentTitle}-`);
+  };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar />
-
       <Drawer
         sx={{
           width: 240,
@@ -65,22 +65,40 @@ const SideBar = () => {
             <ListItemButton
               onClick={() => handleClick(res.title)}
               sx={{
-                backgroundColor: open[res.title]
-                  ? "rgba(0, 0, 0, 0.08)"
-                  : "transparent",
+                backgroundColor:
+                  open.parent === res.title && !isChildActive(res.title)
+                    ? "rgba(0, 0, 0, 0.08)"
+                    : "transparent",
               }}
             >
               {res.icon}
               <Typography sx={{ fontSize: 15, pl: 2 }}>{res.title}</Typography>
             </ListItemButton>
             {res.children.length > 0 && (
-              <Collapse in={open[res.title]} timeout="auto" unmountOnExit>
+              <Collapse
+                in={open.parent === res.title}
+                timeout="auto"
+                unmountOnExit
+              >
                 <List component="div">
                   {res.children.map((child, childIndex) => (
-                    <ListItemButton key={childIndex} sx={{ pl: 5 }}>
+                    <ListItemButton
+                      key={childIndex}
+                      onClick={() => {
+                        handleClick(`${res.title}-${child.title}`, true);
+                        handleNavigate(child.path);
+                      }}
+                      sx={{
+                        pl: 5,
+                        backgroundColor:
+                          open.child === `${res.title}-${child.title}`
+                            ? "rgba(0, 0, 0, 0.08)"
+                            : "transparent",
+                      }}
+                    >
                       <Typography sx={{ fontSize: 14, pl: 2 }}>
                         {child.title}
-                      </Typography>{" "}
+                      </Typography>
                     </ListItemButton>
                   ))}
                 </List>

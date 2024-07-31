@@ -1,4 +1,3 @@
-import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -7,15 +6,6 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import StorageOutlinedIcon from "@mui/icons-material/StorageOutlined";
 import DataObjectOutlinedIcon from "@mui/icons-material/DataObjectOutlined";
 
-const appBarLeftMenu = [
-  {
-    title: "Fingaroo",
-  },
-  {
-    title: "DefaultProject",
-    icon: <UnfoldMoreIcon fontSize="small" sx={{ color: "#fff" }} />,
-  },
-];
 const appBarRightMenu = [
   { title: "Dashboard" },
   { title: "Docs" },
@@ -30,15 +20,15 @@ const sideBarResources = [
     children: [
       {
         title: "Chat",
-        link: "/chats",
+        path: "/chat",
       },
       {
         title: "Assistants",
-        link: "/assistants",
+        path: "/assistant",
       },
       {
         title: "Completions",
-        link: "/completions",
+        path: "/completion",
       },
     ],
   },
@@ -70,4 +60,4 @@ const sideBarResources = [
   },
 ];
 
-export { appBarLeftMenu, appBarRightMenu, appBarProfileMenu, sideBarResources };
+export { appBarRightMenu, appBarProfileMenu, sideBarResources };

@@ -1,17 +1,18 @@
-import React from "react";
-// import Cookies from "universal-cookie/es6";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { IRequireGuest } from "../types";
+import Cookies from "universal-cookie";
 
-const RequireGuest = () => {
-  // let location = useLocation();
-  // const cookie = new Cookies();
-  // const token = cookie.get("Token");
-  const token = "";
-  // const isAuthenticated = useSelector((state) => state?.user?.isAuthenticated);
+const RequireGuest = ({ children }: IRequireGuest) => {
+  ``;
+  const location = useLocation();
+  const cookies = new Cookies();
+  const token = cookies.get("Token");
 
   if (token) {
-    return <Navigate to="/" replace={true} state={{ from: location }} />;
-  } else return <Outlet />;
+    return <Navigate to="/" replace state={{ from: location }} />;
+  }
+
+  return <>{children || <Outlet />}</>;
 };
 
 export default RequireGuest;
