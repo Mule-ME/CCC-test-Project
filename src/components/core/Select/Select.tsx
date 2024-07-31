@@ -29,7 +29,7 @@ const Select = ({
           color: theme.palette.text.primary,
           fontSize: "1rem",
           "&.Mui-focused": {
-            color: theme.palette.text.main,
+            color: theme.palette.text.primary,
           },
         },
         "& .MuiOutlinedInput-root": {
