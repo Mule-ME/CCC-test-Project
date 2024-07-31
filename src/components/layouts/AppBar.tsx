@@ -12,14 +12,20 @@ import {
   Tooltip,
   MenuItem,
   Breadcrumbs,
+  useTheme,
 } from "@mui/material";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import { appBarProfileMenu, appBarRightMenu } from "./config";
 import { Settings } from "@mui/icons-material";
-import { PopoverMenu } from "components/core";
+import ProjectMenu from "components/Project/PojectMenu";
 
 function AppBar() {
+  const theme = useTheme();
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [showPopover, setShowPopover] = useState(false);
+  const [selectedProject, setSelectedProject] = useState("Default project");
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -29,53 +35,77 @@ function AppBar() {
     setAnchorElUser(null);
   };
 
-  const [showPopover, setShowPopover] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [selectedProject, setSelectedProject] = useState("Default project");
-
   const handleButtonClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setShowPopover((prev) => !prev);
   };
 
   return (
-    <DefaultAppBar sx={{ backgroundColor: "#232" }}>
+    <DefaultAppBar sx={{ backgroundColor: theme.palette.common.black }}>
       <Toolbar>
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
           <IconButton sx={{ p: 0 }}>
             <Avatar
               alt="Fingroo"
               src=""
-              sx={{ width: 24, height: 24, fontSize: 15 }}
+              sx={{
+                width: 24,
+                height: 24,
+                fontSize: 15,
+                color: theme.palette.common.black,
+                backgroundColor: theme.palette.grey[300],
+              }}
             >
               F
             </Avatar>
           </IconButton>
           <Breadcrumbs
             aria-label="breadcrumb"
-            sx={{ ".MuiBreadcrumbs-separator": { color: "#fff" } }}
+            sx={{
+              ".MuiBreadcrumbs-separator": {
+                color: theme.palette.common.white,
+              },
+            }}
           >
-            <Button sx={{ textTransform: "capitalize" }}>
-              <Typography color="#fff" sx={{ fontSize: 15 }}>
-                Fingaroo
-              </Typography>
-              <ListItemIcon sx={{ minWidth: "unset", ml: 1 }}>
-                <UnfoldMoreIcon fontSize="small" sx={{ color: "#fff" }} />
-              </ListItemIcon>
-            </Button>
-            <Button
-              sx={{ textTransform: "capitalize" }}
-              onClick={handleButtonClick}
-            >
-              <Typography color="#fff" sx={{ fontSize: 15 }}>
-                {selectedProject}
-              </Typography>
-              <ListItemIcon sx={{ minWidth: "unset", ml: 1 }}>
-                <UnfoldMoreIcon fontSize="small" sx={{ color: "#fff" }} />
-              </ListItemIcon>
-            </Button>
+            {[
+              {
+                text: "Fingaroo",
+                icon: (
+                  <UnfoldMoreIcon
+                    fontSize="small"
+                    sx={{ color: theme.palette.common.white }}
+                  />
+                ),
+              },
+              {
+                text: selectedProject,
+                icon: (
+                  <UnfoldMoreIcon
+                    fontSize="small"
+                    sx={{ color: theme.palette.common.white }}
+                  />
+                ),
+                onClick: handleButtonClick,
+              },
+            ].map(({ text, icon, onClick }, index) => (
+              <Button
+                key={index}
+                sx={{ textTransform: "capitalize" }}
+                onClick={onClick}
+              >
+                <Typography
+                  color={theme.palette.common.white}
+                  sx={{ fontSize: 15 }}
+                >
+                  {text}
+                </Typography>
+                <ListItemIcon sx={{ minWidth: "unset", ml: 1 }}>
+                  {icon}
+                </ListItemIcon>
+              </Button>
+            ))}
           </Breadcrumbs>
-          <PopoverMenu
+          <ProjectMenu
             showPopover={showPopover}
             setShowPopover={setShowPopover}
             anchorEl={anchorEl}
@@ -88,35 +118,44 @@ function AppBar() {
         <Box sx={{ flexGrow: 0 }}>
           {appBarRightMenu?.map((rightMenu) => (
             <Button sx={{ textTransform: "capitalize" }} key={rightMenu.title}>
-              <Typography color="#fff" sx={{ fontSize: 15 }}>
+              <Typography
+                color={
+                  rightMenu.isActive
+                    ? theme.palette.common.white
+                    : theme.palette.grey[200]
+                }
+                sx={{ fontSize: 15 }}
+              >
                 {rightMenu?.title}
               </Typography>
             </Button>
           ))}
-
           <Tooltip title="Settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Settings fontSize="medium" sx={{ color: "#fff" }} />
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mx: 2 }}>
+              <Settings
+                fontSize="medium"
+                sx={{ color: theme.palette.common.white }}
+              />
             </IconButton>
           </Tooltip>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Mulualem Eshetu" src="" />
+              <Avatar
+                alt="Mulualem Eshetu"
+                src=""
+                sx={{ fontSize: 15, backgroundColor: theme.palette.grey[200] }}
+              >
+                M
+              </Avatar>
             </IconButton>
           </Tooltip>
           <Menu
             sx={{ mt: "45px" }}
             id="menu-appbar"
             anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
             keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >

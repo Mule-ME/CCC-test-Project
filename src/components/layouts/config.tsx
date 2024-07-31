@@ -7,9 +7,9 @@ import StorageOutlinedIcon from "@mui/icons-material/StorageOutlined";
 import DataObjectOutlinedIcon from "@mui/icons-material/DataObjectOutlined";
 
 const appBarRightMenu = [
-  { title: "Dashboard" },
-  { title: "Docs" },
-  { title: "API reference" },
+  { title: "Dashboard", isActive: true },
+  { title: "Docs", isActive: false },
+  { title: "API reference", isActive: false },
 ];
 const appBarProfileMenu = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -51,7 +51,12 @@ const sideBarResources = [
   {
     title: "Usage",
     icon: <BarChartOutlinedIcon fontSize="small" />,
-    children: [],
+    children: [
+      {
+        title: "Privacy policy",
+        path: "/privacyPolicy",
+      },
+    ],
   },
   {
     title: "API keys",
