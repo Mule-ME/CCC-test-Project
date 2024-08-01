@@ -5,7 +5,7 @@ export const sliderData: SliderData[] = [
     name: "temperature",
     label: "Temperature",
     defaultValue: 10,
-    unit: "°C",
+    unit: "",
     marks: [
       { value: 0, label: "0°C" },
       { value: 20, label: "20°C" },

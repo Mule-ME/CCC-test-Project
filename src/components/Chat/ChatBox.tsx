@@ -32,7 +32,8 @@ const ChatBox = () => {
         padding: "16px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "start",
+        height: "100%",
       }}
     >
       <Box sx={{ width: "100%", display: "flex", gap: 3 }}>
@@ -89,7 +90,7 @@ const ChatBox = () => {
             "& .MuiOutlinedInput-root": {
               height: 85,
               "& fieldset": {
-                borderColor: "#E0E0E0",
+                borderColor: theme.palette.grey[200],
               },
               "&:hover fieldset": {
                 borderColor: "#757575",

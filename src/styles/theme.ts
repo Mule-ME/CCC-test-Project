@@ -11,4 +11,4 @@ const themeOptions = {
 };
 
 export const theme = createTheme(themeOptions);
-// theme.components = componentsOverride(theme);
+theme.components = componentsOverride(theme);

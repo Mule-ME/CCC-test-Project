@@ -28,107 +28,108 @@ const ModelInfo = () => {
         p: 3,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "stretch",
         height: "100%",
-        mt: 2,
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {sliderData.slice(0, 2).map((slider) => (
-          <Box key={slider.name}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography color={theme.palette.text.primary}>
-                {slider.label}
-              </Typography>
-              <Typography color={theme.palette.text.primary}>
-                {values[slider.name]}
-                {slider.unit}
-              </Typography>
+      <Box>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {sliderData.slice(0, 2).map((slider) => (
+            <Box key={slider.name}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography color={theme.palette.text.primary}>
+                  {slider.label}
+                </Typography>
+                <Typography color={theme.palette.text.primary}>
+                  {values[slider.name]}
+                  {slider.unit}
+                </Typography>
+              </Box>
+              <Slider
+                aria-label={slider.label}
+                value={values[slider.name]}
+                onChange={handleSliderChange(slider.name)}
+                valueLabelDisplay="off"
+              />
             </Box>
-            <Slider
-              aria-label={slider.label}
-              value={values[slider.name]}
-              onChange={handleSliderChange(slider.name)}
-              valueLabelDisplay="off"
+          ))}
+          <Box>
+            <Typography color={theme.palette.text.primary} fontSize={16}>
+              Stop sequences
+            </Typography>
+            <Typography color={theme.palette.text.primary} fontSize={12} pb={1}>
+              Enter sequence and press Tab
+            </Typography>
+            <TextInput
+              sx={{
+                width: "100%",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#757575",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#E0E0E0",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#757575",
+                  },
+                },
+              }}
+              size="small"
             />
           </Box>
-        ))}
-        <Box>
-          <Typography color={theme.palette.text.primary} fontSize={16}>
-            Stop sequences
-          </Typography>
-          <Typography color={theme.palette.text.primary} fontSize={12} pb={1}>
-            Enter sequence and press Tab
-          </Typography>
-          <TextInput
-            sx={{
-              width: "100%",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "#757575",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#E0E0E0",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#757575",
-                },
-              },
-            }}
-            size="small"
-          />
         </Box>
-      </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {sliderData.slice(2).map((slider) => (
-          <Box key={slider.name}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography color={theme.palette.text.primary}>
-                {slider.label}
-              </Typography>
-              <Typography color={theme.palette.text.primary}>
-                {values[slider.name]}
-                {slider.unit}
-              </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
+          {sliderData.slice(2).map((slider) => (
+            <Box key={slider.name}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography color={theme.palette.text.primary}>
+                  {slider.label}
+                </Typography>
+                <Typography color={theme.palette.text.primary}>
+                  {values[slider.name]}
+                  {slider.unit}
+                </Typography>
+              </Box>
+              <Slider
+                aria-label={slider.label}
+                value={values[slider.name]}
+                onChange={handleSliderChange(slider.name)}
+                valueLabelDisplay="off"
+              />
             </Box>
-            <Slider
-              aria-label={slider.label}
-              value={values[slider.name]}
-              onChange={handleSliderChange(slider.name)}
-              valueLabelDisplay="off"
+          ))}
+          <Box sx={{ display: "flex", gap: 1, my: 2 }}>
+            <LockOutlinedIcon
+              fontSize="small"
+              sx={{ color: theme.palette.common.white }}
             />
+            <Typography color={theme.palette.text.primary} fontSize={16}>
+              API and playground requests will not be used to train our model.
+              <br />
+              <Link
+                to="/privacyPolicy"
+                style={{
+                  color: theme.palette.primary.light,
+                  textDecoration: "none",
+                }}
+              >
+                Learn more
+              </Link>
+            </Typography>
           </Box>
-        ))}
-        <Box sx={{ display: "flex", gap: 1, my: 2 }}>
-          <LockOutlinedIcon
-            fontSize="small"
-            sx={{ color: theme.palette.common.white }}
-          />
-          <Typography color={theme.palette.text.primary} fontSize={16}>
-            API and playground requests will not be used to train our model.
-            <br />
-            <Link
-              to="/privacyPolicy"
-              style={{
-                color: theme.palette.primary.light,
-                textDecoration: "none",
-              }}
-            >
-              Learn more
-            </Link>
-          </Typography>
         </Box>
       </Box>
     </Box>

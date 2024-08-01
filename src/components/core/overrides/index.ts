@@ -2,7 +2,7 @@
 
 import Button from "./Button";
 
-import { Select, MenuItem, InputLabel } from "./select";
+import { Select, MenuItem, InputLabel } from "./Select";
 export default function ComponentsOverrides(theme: any) {
   return Object.assign(
     Button(theme),
