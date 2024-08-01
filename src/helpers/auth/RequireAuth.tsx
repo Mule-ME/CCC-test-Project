@@ -9,7 +9,12 @@ const RequireAuth = ({ children }: IRequireAuth) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return children ? <>{children}</> : <Outlet />;
+  //THIS PARE OF THE CODE IS JUST OR THE PURPOSE OF THIS UI IT DOSE'T MEAN I USE IT FOR ENTIRE PROJECT
+  if (location.pathname === "/") {
+    return <Navigate to="/chat" replace />;
+  }
+
+  return children ?? <Outlet />;
 };
 
 export default RequireAuth;

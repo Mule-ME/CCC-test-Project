@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Slider, TextInput } from "components/core";
 import { sliderData } from "./config";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { modelInfoStyles } from "./style";
+
 const ModelInfo = () => {
-  const theme = useTheme();
+  const styles = modelInfoStyles();
 
   const [values, setValues] = useState<Record<string, number>>(
     sliderData.reduce(
@@ -21,32 +23,16 @@ const ModelInfo = () => {
         [name]: newValue as number,
       }));
     };
+
   return (
-    <Box
-      sx={{
-        borderLeft: `1px solid ${theme.palette.common.black}`,
-        p: 3,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "stretch",
-        height: "100%",
-      }}
-    >
+    <Box sx={styles.container}>
       <Box>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box sx={styles.sliderGroup}>
           {sliderData.slice(0, 2).map((slider) => (
             <Box key={slider.name}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography color={theme.palette.text.primary}>
-                  {slider.label}
-                </Typography>
-                <Typography color={theme.palette.text.primary}>
+              <Box sx={styles.sliderBox}>
+                <Typography sx={styles.sliderLabel}>{slider.label}</Typography>
+                <Typography sx={styles.sliderLabel}>
                   {values[slider.name]}
                   {slider.unit}
                 </Typography>
@@ -60,45 +46,21 @@ const ModelInfo = () => {
             </Box>
           ))}
           <Box>
-            <Typography color={theme.palette.text.primary} fontSize={16}>
+            <Typography sx={styles.sliderLabel} fontSize={16}>
               Stop sequences
             </Typography>
-            <Typography color={theme.palette.text.primary} fontSize={12} pb={1}>
+            <Typography sx={styles.sliderLabel} fontSize={12} pb={1}>
               Enter sequence and press Tab
             </Typography>
-            <TextInput
-              sx={{
-                width: "100%",
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#757575",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#E0E0E0",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#757575",
-                  },
-                },
-              }}
-              size="small"
-            />
+            <TextInput sx={styles.stopSequences} size="small" />
           </Box>
         </Box>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
+        <Box sx={{ ...styles.sliderGroup, mt: 3 }}>
           {sliderData.slice(2).map((slider) => (
             <Box key={slider.name}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography color={theme.palette.text.primary}>
-                  {slider.label}
-                </Typography>
-                <Typography color={theme.palette.text.primary}>
+              <Box sx={styles.sliderBox}>
+                <Typography sx={styles.sliderLabel}>{slider.label}</Typography>
+                <Typography sx={styles.sliderLabel}>
                   {values[slider.name]}
                   {slider.unit}
                 </Typography>
@@ -111,21 +73,12 @@ const ModelInfo = () => {
               />
             </Box>
           ))}
-          <Box sx={{ display: "flex", gap: 1, my: 2 }}>
-            <LockOutlinedIcon
-              fontSize="small"
-              sx={{ color: theme.palette.common.white }}
-            />
-            <Typography color={theme.palette.text.primary} fontSize={16}>
+          <Box sx={styles.apiInfoBox}>
+            <LockOutlinedIcon fontSize="small" sx={styles.lockIcon} />
+            <Typography sx={styles.sliderLabel} fontSize={16}>
               API and playground requests will not be used to train our model.
               <br />
-              <Link
-                to="/privacyPolicy"
-                style={{
-                  color: theme.palette.primary.light,
-                  textDecoration: "none",
-                }}
-              >
+              <Link to="/privacyPolicy" style={styles.privacyLink}>
                 Learn more
               </Link>
             </Typography>

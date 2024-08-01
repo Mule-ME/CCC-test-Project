@@ -1,15 +1,11 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { IRequireGuest } from "../types";
-import Cookies from "universal-cookie";
 
 const RequireGuest = ({ children }: IRequireGuest) => {
-  ``;
-  const location = useLocation();
-  const cookies = new Cookies();
-  const token = cookies.get("Token");
+  const token = localStorage.getItem("accessToken");
 
   if (token) {
-    return <Navigate to="/" replace state={{ from: location }} />;
+    return <Navigate to="/" replace />;
   }
 
   return <>{children || <Outlet />}</>;

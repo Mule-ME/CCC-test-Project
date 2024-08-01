@@ -1,20 +1,10 @@
 import { ILayout } from "./types";
 import { Box, Grid } from "@mui/material";
-import { styled } from "@mui/system";
 import { AppBar, SideBar } from "components/layouts";
-
-const Root = styled("div")({
-  display: "flex",
-  height: "100vh",
-});
-
-const Page = styled("div")({
-  flexGrow: 1,
-  marginTop: "64px",
-  boxSizing: "border-box",
-});
+import layoutStyles from "./style";
 
 const Layout = ({ children, ...rest }: ILayout) => {
+  const styles = layoutStyles();
   const token = localStorage.getItem("accessToken");
 
   return (
@@ -22,13 +12,13 @@ const Layout = ({ children, ...rest }: ILayout) => {
       {!token ? (
         <Box>{children}</Box>
       ) : (
-        <Grid container justifyContent="center">
-          <Grid justifyContent="center" item xs={12}>
-            <Root>
+        <Grid container sx={styles.container}>
+          <Grid item xs={12} sx={styles.gridItem}>
+            <Box sx={styles.root}>
               <AppBar />
               <SideBar />
-              <Page>{children}</Page>
-            </Root>
+              <Box sx={styles.page}>{children}</Box>
+            </Box>
           </Grid>
         </Grid>
       )}

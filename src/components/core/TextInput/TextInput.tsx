@@ -1,11 +1,6 @@
-import {
-  TextField,
-  InputAdornment,
-  Box,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { TextField, InputAdornment, Box, Typography } from "@mui/material";
 import { ITextInputProps } from "./types";
+import textInputStyles from "./style";
 
 const TextInput = ({
   startAdornment,
@@ -17,23 +12,11 @@ const TextInput = ({
   sx,
   ...props
 }: ITextInputProps) => {
-  const theme = useTheme();
+  const styles = textInputStyles();
+
   return (
-    <Box sx={{ position: "relative", width: "100%" }}>
-      {label && (
-        <Typography
-          sx={{
-            position: "absolute",
-            top: 10,
-            left: 12,
-            fontSize: 16,
-            fontWeight: "bold",
-          }}
-          color={theme.palette.text.primary}
-        >
-          {label}
-        </Typography>
-      )}
+    <Box sx={styles.box}>
+      {label && <Typography sx={styles.label}>{label}</Typography>}
       <TextField
         {...props}
         variant="outlined"
@@ -43,12 +26,14 @@ const TextInput = ({
         InputProps={{
           ...InputProps,
           startAdornment: startAdornment ? (
-            <InputAdornment position="start" sx={{ mr: "1px" }}>
+            <InputAdornment position="start" sx={styles.startAdornment}>
               {startAdornment}
             </InputAdornment>
           ) : null,
           endAdornment: endAdornment ? (
-            <InputAdornment position="end">{endAdornment}</InputAdornment>
+            <InputAdornment position="end" sx={styles.endAdornment}>
+              {endAdornment}
+            </InputAdornment>
           ) : null,
         }}
       />

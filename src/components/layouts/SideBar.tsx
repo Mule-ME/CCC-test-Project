@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Drawer,
@@ -9,11 +9,15 @@ import {
   useTheme,
 } from "@mui/material";
 import { sideBarResources } from "./config";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { sideBarStyles } from "./style";
 
 const SideBar = () => {
-  const navigate = useNavigate();
   const theme = useTheme();
+  const navigate = useNavigate();
+  const styles = sideBarStyles();
+  const location = useLocation();
+
   const [open, setOpen] = useState<Record<string, string | null>>({
     parent: null,
     child: null,
@@ -41,50 +45,38 @@ const SideBar = () => {
     navigate(path);
   };
 
-  const drawerWidth = 240;
-  const drawerStyles = {
-    width: drawerWidth,
-    flexShrink: 0,
-    "& .MuiDrawer-paper": {
-      width: drawerWidth,
-      boxSizing: "border-box",
-      marginTop: 8,
-      backgroundColor: theme.palette.secondary.main,
-    },
-  };
+  useEffect(() => {
+    // Check URL and update sidebar state
+    const updateSidebarState = (path: string) => {
+      sideBarResources.forEach((res) => {
+        res.children.forEach((child) => {
+          if (child.path === path) {
+            setOpen({
+              parent: res.title,
+              child: `${res.title}-${child.title}`,
+            });
+          }
+        });
+      });
+    };
 
-  const listStyles = {
-    width: "100%",
-    maxWidth: 360,
-    bgcolor: theme.palette.secondary.main,
-  };
-
-  const listItemButtonStyles = (isActive: boolean, hasPadding = false) => ({
-    backgroundColor: isActive ? theme.palette.grey[100] : "transparent",
-    padding: hasPadding ? 2 : undefined,
-    borderRadius: hasPadding ? 1 : undefined,
-  });
+    updateSidebarState(location.pathname);
+  }, [location.pathname]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        borderRight: "#000 1px solid",
-        backgroundColor: theme.palette.secondary.main,
-      }}
-    >
-      <Drawer sx={drawerStyles} variant="permanent" anchor="left">
+    <Box sx={styles.box}>
+      <Drawer sx={styles.drawer} variant="permanent" anchor="left">
         {sideBarResources.map((res, index) => (
-          <List key={index} sx={listStyles} component="nav">
+          <List key={index} sx={styles.list} component="nav">
             <ListItemButton
               onClick={() => handleClick(res.title)}
-              sx={listItemButtonStyles(
+              sx={styles.listItemButton(
                 open.parent === res.title && !isChildActive(res.title),
                 true
               )}
             >
               {res.icon}
-              <Typography sx={{ fontSize: 15, pl: 2 }}>{res.title}</Typography>
+              <Typography sx={styles.typography}>{res.title}</Typography>
             </ListItemButton>
             {res.children.length > 0 && (
               <Collapse
@@ -92,7 +84,7 @@ const SideBar = () => {
                 timeout="auto"
                 unmountOnExit
               >
-                <List component="div">
+                <List component="div" sx={styles.collapse.list}>
                   {res.children.map((child, childIndex) => (
                     <ListItemButton
                       key={childIndex}
@@ -100,12 +92,18 @@ const SideBar = () => {
                         handleClick(`${res.title}-${child.title}`, true);
                         handleNavigate(child.path);
                       }}
-                      sx={listItemButtonStyles(
-                        open.child === `${res.title}-${child.title}`,
-                        false
-                      )}
+                      sx={{
+                        ...styles.listItemButton(
+                          open.child === `${res.title}-${child.title}`,
+                          false
+                        ),
+                        borderRadius: 1,
+                        "&:hover": {
+                          backgroundColor: theme.palette.action.hover,
+                        },
+                      }}
                     >
-                      <Typography sx={{ fontSize: 14, pl: 2 }}>
+                      <Typography sx={styles.childTypography}>
                         {child.title}
                       </Typography>
                     </ListItemButton>
