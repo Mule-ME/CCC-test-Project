@@ -88,7 +88,7 @@ const ProjectMenu = ({
               startAdornment={
                 <SearchIcon
                   fontSize="medium"
-                  style={{ color: theme.palette.grey[700] }}
+                  style={{ color: theme.palette.common.white }}
                 />
               }
             />
