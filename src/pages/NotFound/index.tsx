@@ -1,13 +1,16 @@
 import { Box, Typography, Button, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import notFoundStyles from "./style";
+import { useEffect } from "react";
 
 const NotFound = () => {
   const styles = notFoundStyles();
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("accessToken");
+
   const handleGoHome = () => {
-    navigate("/chat");
+    token ? navigate("/chat") : navigate("/login");
   };
 
   return (

@@ -1,6 +1,6 @@
-import { useTheme } from "@mui/material";
+import { SxProps, Theme, useTheme } from "@mui/material";
 
-const textInputStyles = () => {
+const textInputStyles = (): Record<string, SxProps<Theme>> => {
   const theme = useTheme();
 
   return {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -9,7 +10,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { sideBarResources } from "./config";
-import { useNavigate, useLocation } from "react-router-dom";
 import { sideBarStyles } from "./style";
 
 const SideBar = () => {
@@ -70,10 +70,12 @@ const SideBar = () => {
           <List key={index} sx={styles.list} component="nav">
             <ListItemButton
               onClick={() => handleClick(res.title)}
-              sx={styles.listItemButton(
-                open.parent === res.title && !isChildActive(res.title),
-                true
-              )}
+              sx={{
+                ...styles.listItemButton(
+                  open.parent === res.title && !isChildActive(res.title),
+                  true
+                ),
+              }}
             >
               {res.icon}
               <Typography sx={styles.typography}>{res.title}</Typography>
@@ -84,7 +86,7 @@ const SideBar = () => {
                 timeout="auto"
                 unmountOnExit
               >
-                <List component="div" sx={styles.collapse.list}>
+                <List component="div" sx={styles.collapseList}>
                   {res.children.map((child, childIndex) => (
                     <ListItemButton
                       key={childIndex}
@@ -93,13 +95,13 @@ const SideBar = () => {
                         handleNavigate(child.path);
                       }}
                       sx={{
-                        ...styles.listItemButton(
+                        ...styles.childListItemButton(
                           open.child === `${res.title}-${child.title}`,
                           false
                         ),
                         borderRadius: 1,
                         "&:hover": {
-                          backgroundColor: theme.palette.action.hover,
+                          backgroundColor: theme.palette.grey[100],
                         },
                       }}
                     >

@@ -4,17 +4,11 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import { IconButton, Select, TextInput } from "components/core";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import { options } from "./config";
 import { chatBoxStyles } from "./style";
 
 const ChatBox = () => {
   const styles = chatBoxStyles();
-
-  const options = [
-    { value: "gpt-4o", label: "gpt-4o" },
-    { value: "gpt-3.5", label: "gpt-3.5" },
-    { value: "bard", label: "bard" },
-  ];
-
   const [selectedOption, setSelectedOption] = useState<string>("");
 
   const handleChange = (
@@ -31,7 +25,6 @@ const ChatBox = () => {
           value={selectedOption}
           onChange={handleChange}
           options={options}
-          sx={styles.select}
           endAdornment={
             <IconButton>
               <UnfoldMoreIcon sx={styles.unfoldMoreIcon} />

@@ -1,4 +1,4 @@
-import AppBar from "./AppBar";
-import SideBar from "./SideBar";
+import AppBar from "./appbar/AppBar";
+import SideBar from "./sidbar/SideBar";
 
 export { AppBar, SideBar };

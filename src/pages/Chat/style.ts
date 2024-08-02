@@ -1,6 +1,6 @@
-import { useTheme } from "@mui/material";
+import { useTheme, Theme, SxProps } from "@mui/material";
 
-const chatStyles = () => {
+const chatStyles = (): Record<string, SxProps<Theme>> => {
   const theme = useTheme();
 
   return {
