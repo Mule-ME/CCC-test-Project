@@ -13,7 +13,7 @@ const RequireAuth = ({ children }: IRequireAuth) => {
     return <Navigate to="/chat" replace />;
   }
 
-  return children ?? <Outlet />;
+  return <>{children ?? <Outlet />}</>;
 };
 
 export default RequireAuth;
