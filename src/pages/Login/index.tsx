@@ -1,5 +1,6 @@
-import { TextField, Button, Typography, Container, Box } from "@mui/material";
-import useLogin from "./hooks/useLogin"; // Adjust the path as necessary
+import { Button, Typography, Container, Box } from "@mui/material";
+import { TextInput } from "components/core";
+import useLogin from "./hooks/useLogin";
 import loginStyles from "./style";
 
 const Login = () => {
@@ -15,21 +16,21 @@ const Login = () => {
           <Typography variant="h4" gutterBottom sx={styles.title} color="white">
             Login
           </Typography>
-          <TextField
-            label="Username"
-            variant="outlined"
+          <TextInput
+            placeholder="Username"
             margin="normal"
             fullWidth
+            sx={styles.textInput}
             required
             name="username"
             value={username}
             onChange={handleChange}
           />
-          <TextField
-            label="Password"
-            type="password"
-            variant="outlined"
+          <TextInput
+            placeholder="Password"
             margin="normal"
+            sx={styles.textInput}
+            type="password"
             fullWidth
             value={password}
             required
