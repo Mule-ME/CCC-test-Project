@@ -4,18 +4,11 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import ReplayIcon from "@mui/icons-material/Replay";
 import CodeOffIcon from "@mui/icons-material/CodeOff";
 import { TextInput, IconButton } from "components/core";
+import { presets } from "./config";
 import { chatMenuStyles } from "./style";
 
 const ChatMenu = () => {
   const styles = chatMenuStyles();
-
-  const presets = [
-    "Friendly Chatbot",
-    "Informative Assistant",
-    "Imaginative Storyteller",
-    "Logical Analyst",
-    "Concise Summarizer",
-  ];
 
   return (
     <Box sx={styles.container}>
@@ -26,6 +19,7 @@ const ChatMenu = () => {
           sx={styles.autocomplete}
           renderInput={(params) => (
             <TextInput
+              sx={styles.autocompleteInput}
               {...params}
               size="small"
               placeholder="Presets"
@@ -37,13 +31,13 @@ const ChatMenu = () => {
           Save
         </Button>
         <IconButton aria-label="upload your file" sx={styles.iconButton}>
-          <FileUploadIcon fontSize="small" />
+          <FileUploadIcon fontSize="small" sx={{ color: "white" }} />
         </IconButton>
         <IconButton aria-label="Regenerate response" sx={styles.iconButton}>
-          <ReplayIcon fontSize="small" />
+          <ReplayIcon fontSize="small" sx={{ color: "white" }} />
         </IconButton>
         <IconButton aria-label="Disable code" sx={styles.iconButton}>
-          <CodeOffIcon fontSize="small" />
+          <CodeOffIcon fontSize="small" sx={{ color: "white" }} />
         </IconButton>
       </Box>
     </Box>

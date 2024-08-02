@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Slider, TextInput } from "components/core";
 import { sliderData } from "./config";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { modelInfoStyles } from "./style";
 
 const ModelInfo = () => {

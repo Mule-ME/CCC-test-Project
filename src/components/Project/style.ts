@@ -1,13 +1,13 @@
-import { useTheme } from "@mui/material";
+import { SxProps, Theme, useTheme } from "@mui/material";
 
-const projectMenuStyles = () => {
+const projectMenuStyles = (): Record<string, SxProps<Theme>> => {
   const theme = useTheme();
 
   return {
     popoverBox: {
       px: 2,
       py: 1,
-      width: 350,
+      width: 300,
       bgcolor: theme.palette.secondary.light,
     },
     autocomplete: {
@@ -17,48 +17,60 @@ const projectMenuStyles = () => {
         ".Mui-focused fieldset": {
           borderColor: theme.palette.common.white,
         },
-        ".MuiAutocomplete-paper": {
-          backgroundColor: "black",
-          color: "white",
+      },
+    },
+
+    autocompleteInput: {
+      "& .MuiOutlinedInput-root": {
+        borderRadius: 2,
+        "& fieldset": {
+          borderColor: theme.palette.grey[100],
+        },
+        "&:hover fieldset": {
+          borderColor: theme.palette.grey[200],
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: theme.palette.grey[600],
+          borderWidth: "3px",
         },
       },
     },
-    menuItem: (selectedProject: string) => ({
-      selected: {
-        padding: "10px 16px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+
+    selected: {
+      padding: "10px 16px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      backgroundColor: theme.palette.primary.main,
+      ":hover": {
+        color: theme.palette.primary.main,
         backgroundColor: theme.palette.primary.main,
-        ":hover": {
-          color: theme.palette.primary.main,
-          backgroundColor: theme.palette.grey[500],
-        },
+      },
+      color: theme.palette.common.white,
+      borderRadius: 2,
+    },
+    default: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      ":hover": {
+        backgroundColor: theme.palette.grey[200],
         color: theme.palette.common.white,
-        borderRadius: "10px",
       },
-      default: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        ":hover": {
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.common.white,
-        },
-        borderRadius: "10px",
+      borderRadius: 2,
+    },
+    organization: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      ":hover": {
+        backgroundColor: theme.palette.grey[200],
+        color: theme.palette.common.white,
       },
-      organization: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        ":hover": {
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.common.white,
-        },
-        color: theme.palette.text.primary,
-        borderRadius: "10px",
-      },
-    }),
+      color: theme.palette.text.primary,
+      borderRadius: 2,
+    },
+
     icon: {
       marginRight: 1,
     },

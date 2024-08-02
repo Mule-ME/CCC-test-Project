@@ -42,3 +42,17 @@ export const sliderData: SliderData[] = [
     marks: [],
   },
 ];
+
+export const options = [
+  { value: "gpt-4o", label: "gpt-4o" },
+  { value: "gpt-3.5", label: "gpt-3.5" },
+  { value: "bard", label: "bard" },
+];
+
+export const presets = [
+  "Friendly Chatbot",
+  "Informative Assistant",
+  "Imaginative Storyteller",
+  "Logical Analyst",
+  "Concise Summarizer",
+];

@@ -1,5 +1,3 @@
-import { useTheme } from "@mui/material";
-
 export const layoutStyles = () => {
   return {
     root: {

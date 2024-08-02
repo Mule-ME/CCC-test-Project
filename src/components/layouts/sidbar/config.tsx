@@ -6,12 +6,6 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import StorageOutlinedIcon from "@mui/icons-material/StorageOutlined";
 import DataObjectOutlinedIcon from "@mui/icons-material/DataObjectOutlined";
 
-const appBarRightMenu = [
-  { title: "Dashboard", isActive: true },
-  { title: "Docs", isActive: false },
-  { title: "API reference", isActive: false },
-];
-const appBarProfileMenu = ["Profile", "Account", "Dashboard", "Logout"];
 
 const sideBarResources = [
   {
@@ -65,4 +59,4 @@ const sideBarResources = [
   },
 ];
 
-export { appBarRightMenu, appBarProfileMenu, sideBarResources };
+export { sideBarResources };

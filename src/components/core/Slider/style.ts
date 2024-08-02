@@ -6,6 +6,7 @@ const sliderShadow =
 const sliderStyles = (theme: Theme) => ({
   color: theme.palette.text.primary,
   height: 5,
+
   padding: "15px 0",
   "& .MuiSlider-thumb": {
     height: 20,

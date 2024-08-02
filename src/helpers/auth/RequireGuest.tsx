@@ -4,8 +4,9 @@ import { IRequireGuest } from "../types";
 const RequireGuest = ({ children }: IRequireGuest) => {
   const token = localStorage.getItem("accessToken");
 
+  console.log(token);
   if (token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/chat" replace />;
   }
 
   return <>{children || <Outlet />}</>;

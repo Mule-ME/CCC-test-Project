@@ -10,6 +10,7 @@ const chatBoxStyles = () => {
       justifyContent: "start",
       height: "100%",
     },
+
     header: {
       width: "100%",
       display: "flex",
@@ -106,9 +107,26 @@ const chatMenuStyles = () => {
           borderColor: theme.palette.grey[700],
         },
       },
-      width: "250px",
+      width: { xs: "150px", md: "250px" },
       marginRight: 1,
     },
+
+    autocompleteInput: {
+      "& .MuiOutlinedInput-root": {
+        borderRadius: 2,
+        "& fieldset": {
+          borderColor: theme.palette.grey[100],
+        },
+        "&:hover fieldset": {
+          borderColor: theme.palette.grey[200],
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: theme.palette.grey[900],
+          borderWidth: "0.5px",
+        },
+      },
+    },
+
     button: {
       width: "80px",
       color: theme.palette.common.white,
@@ -135,7 +153,7 @@ const modelInfoStyles = () => {
   const theme = useTheme();
   return {
     container: {
-      borderLeft: `1px solid ${theme.palette.common.black}`,
+      borderLeft: { xs: "none", md: `1px solid ${theme.palette.common.black}` },
       p: 3,
       display: "flex",
       flexDirection: "column",

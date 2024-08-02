@@ -67,5 +67,40 @@ function MuiMenuList(theme: Theme) {
   };
 }
 
+function MuiAutocomplete(theme: Theme) {
+  return {
+    MuiAutocomplete: {
+      styleOverrides: {
+        root: {
+          borderRadius: 3,
+        },
+        paper: {
+          backgroundColor: theme.palette.secondary.main,
+          color: theme.palette.text.primary,
+        },
+        option: {
+          "&:hover": {
+            backgroundColor: theme.palette.grey[600],
+            color: theme.palette.text.primary,
+          },
+        },
+        noOptions: {
+          color: theme.palette.text.disabled,
+        },
+      },
+    },
+    MuiPopper: {
+      styleOverrides: {
+        root: {
+          "& .MuiPaper-root": {
+            backgroundColor: theme.palette.grey[200],
+            color: theme.palette.text.primary,
+          },
+        },
+      },
+    },
+  };
+}
+
 // MuiMenu - paper;
-export { MenuItem, Select, InputLabel, MuiMenuList };
+export { MenuItem, Select, InputLabel, MuiMenuList, MuiAutocomplete };

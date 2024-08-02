@@ -15,16 +15,8 @@ import InfoIcon from "@mui/icons-material/Info";
 import OrganizationIcon from "@mui/icons-material/Business";
 import { IProjectMenuProps } from "./types";
 import { Popover, TextInput } from "components/core";
+import { projects } from "utils";
 import projectMenuStyles from "./style";
-
-const projects = [
-  "Default project",
-  "Project Alpha",
-  "Project Beta",
-  "Project Gamma",
-  "Project Delta",
-  "Project Epsilon",
-];
 
 const ProjectMenu = ({
   showPopover,
@@ -36,6 +28,34 @@ const ProjectMenu = ({
 }: IProjectMenuProps) => {
   const theme = useTheme();
   const styles = projectMenuStyles();
+
+  const menus = [
+    {
+      content: (
+        <Box sx={styles.projectBox}>
+          {selectedProject}
+          <Tooltip title={selectedProject} arrow>
+            <InfoIcon sx={styles.infoIcon} />
+          </Tooltip>
+        </Box>
+      ),
+      icon: <CheckIcon sx={styles.icon} />,
+      sx: styles.selected,
+      divider: true,
+    },
+    {
+      content: "Create project",
+      icon: <AddIcon sx={styles.icon} />,
+      sx: styles.default,
+      divider: false,
+    },
+    {
+      content: "Organization overview",
+      icon: <OrganizationIcon sx={styles.icon} />,
+      sx: styles.organization,
+      divider: false,
+    },
+  ];
 
   const handleClose = () => {
     setShowPopover(false);
@@ -58,13 +78,16 @@ const ProjectMenu = ({
           sx={styles.autocomplete}
           renderInput={(params) => (
             <TextInput
+              sx={styles.autocompleteInput}
               {...params}
               size="small"
               placeholder="Change project..."
               startAdornment={
                 <SearchIcon
                   fontSize="medium"
-                  style={{ color: theme.palette.common.white }}
+                  style={{
+                    color: theme.palette.common.white,
+                  }}
                 />
               }
             />
@@ -72,37 +95,13 @@ const ProjectMenu = ({
         />
 
         <MenuList>
-          {[
-            {
-              content: (
-                <Box sx={styles.projectBox}>
-                  {selectedProject}
-                  <Tooltip title={selectedProject} arrow>
-                    <InfoIcon sx={styles.infoIcon} />
-                  </Tooltip>
-                </Box>
-              ),
-              icon: <CheckIcon sx={styles.icon} />,
-              sx: styles.menuItem(selectedProject).selected,
-              divider: true,
-            },
-            {
-              content: "Create project",
-              icon: <AddIcon sx={styles.icon} />,
-              sx: styles.menuItem(selectedProject).default,
-            },
-            {
-              content: "Organization overview",
-              icon: <OrganizationIcon sx={styles.icon} />,
-              sx: styles.menuItem(selectedProject).organization,
-            },
-          ].map(({ content, icon, sx, divider }, index) => (
+          {menus.map(({ content, icon, sx, divider }, index) => (
             <Fragment key={index}>
               <MenuItem sx={sx}>
                 {content}
                 {icon}
               </MenuItem>
-              {divider && <Divider />}
+              {divider && <Divider sx={{ backgroundColor: "grey.900" }} />}
             </Fragment>
           ))}
         </MenuList>

@@ -15,10 +15,10 @@ import {
   useTheme,
 } from "@mui/material";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
-import { appBarProfileMenu, appBarRightMenu } from "./config";
 import { Settings } from "@mui/icons-material";
+import { appBarProfileMenu, appBarRightMenu } from "./config";
+import { appBarStyles, RightMenuButtonText } from "./style";
 import ProjectMenu from "components/Project/ProjectMenu";
-import { appBarStyles } from "./style";
 
 function AppBar() {
   const theme = useTheme();
@@ -43,13 +43,14 @@ function AppBar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.clear();
+    window.location.replace("/login");
   };
 
   return (
     <DefaultAppBar sx={styles.appBar}>
-      <Toolbar>
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+      <Toolbar sx={styles.toolBar}>
+        <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
           <IconButton sx={styles.iconButton}>
             <Avatar alt="Fingroo" src="" sx={styles.avatar}>
               F
@@ -98,29 +99,38 @@ function AppBar() {
           />
         </Box>
 
-        <Box sx={{ flexGrow: 0 }}>
-          {appBarRightMenu?.map((rightMenu) => (
-            <Button sx={styles.button} key={rightMenu.title}>
-              <Typography sx={styles.rightMenuButtonText(rightMenu.isActive)}>
-                {rightMenu?.title}
-              </Typography>
-            </Button>
-          ))}
-          <Tooltip title="Settings">
-            <IconButton
-              onClick={handleOpenUserMenu}
-              sx={styles.settingsIconButton}
-            >
-              <Settings fontSize="medium" sx={styles.settingsIcon} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={styles.iconButton}>
-              <Avatar alt="Mulualem Eshetu" src="" sx={styles.profileAvatar}>
-                M
-              </Avatar>
-            </IconButton>
-          </Tooltip>
+        <Box sx={{ flexGrow: 0, flexDirection: "row", display: "flex" }}>
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
+            {appBarRightMenu?.map((rightMenu) => (
+              <Button
+                sx={{
+                  ...styles.button,
+                }}
+                key={rightMenu.title}
+              >
+                <RightMenuButtonText isActive={rightMenu.isActive}>
+                  {rightMenu?.title}
+                </RightMenuButtonText>
+              </Button>
+            ))}
+          </Box>
+          <Box>
+            <Tooltip title="Settings">
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={styles.settingsIconButton}
+              >
+                <Settings fontSize="medium" sx={styles.settingsIcon} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={styles.iconButton}>
+                <Avatar alt="Mulualem Eshetu" src="" sx={styles.profileAvatar}>
+                  M
+                </Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
           <Menu
             sx={styles.menu}
             id="menu-appbar"
