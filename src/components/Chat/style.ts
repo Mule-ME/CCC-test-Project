@@ -129,6 +129,7 @@ const chatMenuStyles = () => {
 
     button: {
       width: "80px",
+      height: 38,
       color: theme.palette.common.white,
       borderColor: "transparent",
       backgroundColor: theme.palette.grey[200],

@@ -18,6 +18,22 @@ export const loginStyles = (): Record<string, SxProps<Theme>> => {
       backgroundColor: theme.palette.grey[200],
       borderRadius: 2,
     },
+
+    textInput: {
+      "& .MuiOutlinedInput-root": {
+        borderRadius: 2,
+        "& fieldset": {
+          borderColor: theme.palette.grey[100],
+        },
+        "&:hover fieldset": {
+          borderColor: theme.palette.grey[600],
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: theme.palette.grey[600],
+          borderWidth: "3px",
+        },
+      },
+    },
     title: {},
     errorText: {
       mt: 2,
