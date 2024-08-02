@@ -6,10 +6,10 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import StorageOutlinedIcon from "@mui/icons-material/StorageOutlined";
 import DataObjectOutlinedIcon from "@mui/icons-material/DataObjectOutlined";
 
-
 const sideBarResources = [
   {
     title: "Playground",
+    mainPath: "/chat",
     icon: <TerminalIcon fontSize="small" />,
     children: [
       {
@@ -28,22 +28,33 @@ const sideBarResources = [
   },
   {
     title: "Assistants",
+    mainPath: "/assistant",
     icon: <SmartToyIcon fontSize="small" />,
     children: [],
   },
-  { title: "Fine-tuning", icon: <TuneIcon fontSize="small" />, children: [] },
+  {
+    title: "Fine-tuning",
+    mainPath: "/tune",
+    icon: <TuneIcon fontSize="small" />,
+    children: [],
+  },
   {
     title: "Batches",
+    mainPath: "/batches",
+
     icon: <DataObjectOutlinedIcon fontSize="small" />,
     children: [],
   },
   {
     title: "Storage",
+    mainPath: "/storage",
     icon: <StorageOutlinedIcon fontSize="small" />,
     children: [],
   },
   {
     title: "Usage",
+    mainPath: "/privacyPolicy",
+
     icon: <BarChartOutlinedIcon fontSize="small" />,
     children: [
       {
@@ -54,6 +65,8 @@ const sideBarResources = [
   },
   {
     title: "API keys",
+    mainPath: "/apiKeys",
+
     icon: <LockOutlinedIcon fontSize="small" />,
     children: [],
   },

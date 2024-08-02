@@ -43,7 +43,7 @@ const projectMenuStyles = (): Record<string, SxProps<Theme>> => {
       justifyContent: "space-between",
       backgroundColor: theme.palette.primary.main,
       ":hover": {
-        color: theme.palette.primary.main,
+        color: theme.palette.text.primary,
         backgroundColor: theme.palette.primary.main,
       },
       color: theme.palette.common.white,

@@ -23,7 +23,11 @@ const SideBar = () => {
     child: null,
   });
 
-  const handleClick = (title: string, isChild: boolean = false) => {
+  const handleClick = (
+    title: string,
+    isChild: boolean = false,
+    path: string = ""
+  ) => {
     setOpen((prevOpen) => {
       const newOpen = { ...prevOpen };
       if (isChild) {
@@ -31,7 +35,7 @@ const SideBar = () => {
       } else {
         newOpen.parent = prevOpen.parent === title ? null : title;
         newOpen.child = null;
-        navigate("/");
+        navigate(path);
       }
       return newOpen;
     });
@@ -69,7 +73,9 @@ const SideBar = () => {
         {sideBarResources.map((res, index) => (
           <List key={index} sx={styles.list} component="nav">
             <ListItemButton
-              onClick={() => handleClick(res.title)}
+              onClick={() => {
+                handleClick(res.title, undefined, res?.mainPath);
+              }}
               sx={{
                 ...styles.listItemButton(
                   open.parent === res.title && !isChildActive(res.title),
@@ -91,7 +97,11 @@ const SideBar = () => {
                     <ListItemButton
                       key={childIndex}
                       onClick={() => {
-                        handleClick(`${res.title}-${child.title}`, true);
+                        handleClick(
+                          `${res.title}-${child.title}`,
+                          true,
+                          undefined
+                        );
                         handleNavigate(child.path);
                       }}
                       sx={{

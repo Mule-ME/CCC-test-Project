@@ -27,7 +27,7 @@ const ChatMenu = () => {
             />
           )}
         />
-        <Button sx={styles.button} variant="outlined">
+        <Button sx={styles.button} variant="outlined"  >
           Save
         </Button>
         <IconButton aria-label="upload your file" sx={styles.iconButton}>

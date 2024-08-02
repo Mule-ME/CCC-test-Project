@@ -7,7 +7,7 @@ import Assistants from "pages/Assistants";
 import Completions from "pages/Completions";
 import { RequireGuest, RequireAuth } from "helpers/auth";
 import Login from "pages/Login";
-import NotFound from "pages/NotFound"; // Ensure you have a NotFound page
+import NotFound from "pages/NotFound";
 
 function App() {
   const [authState, setAuthState] = useState(false);
@@ -23,7 +23,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="*" element={<NotFound />} />
-            <Route element={<RequireAuth />}>
+            <Route path="/" element={<RequireAuth />}>
               <Route path="/chat" element={<Chat />} />
               <Route path="/assistant" element={<Assistants />} />
               <Route path="/completion" element={<Completions />} />
