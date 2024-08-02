@@ -6,18 +6,16 @@ function Select(theme: Theme) {
       styleOverrides: {
         root: {
           fontSize: "14px",
-          //TODO measurement's should implemented using theme size
-          width: "300px",
         },
         select: {
           color: theme.palette.text.primary,
-          //   backgroundColor: theme.palette.secondary.main,
+          // backgroundColor: theme.palette.secondary.main,
           padding: "10px",
           "&.Mui-error": {
             borderColor: theme.palette.error.main,
             color: theme.palette.error.main,
             "&:hover": {
-              //   backgroundColor: '#ffcdd2',
+              backgroundColor: theme.palette.error.light,
             },
           },
         },
@@ -35,7 +33,7 @@ function MenuItem(theme: Theme) {
       styleOverrides: {
         root: {
           color: theme.palette.text.primary,
-          fontSize: 12,
+          fontSize: 14,
         },
       },
     },
@@ -55,4 +53,19 @@ function InputLabel(theme: Theme) {
   };
 }
 
-export { MenuItem, Select, InputLabel };
+function MuiMenuList(theme: Theme) {
+  return {
+    MuiList: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.text.primary,
+          // paddingTop: '4px', //new
+          backgroundColor: theme.palette.secondary.light,
+        },
+      },
+    },
+  };
+}
+
+// MuiMenu - paper;
+export { MenuItem, Select, InputLabel, MuiMenuList };

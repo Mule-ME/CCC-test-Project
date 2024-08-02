@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "helpers/AuthContext";
 import Layout from "./layout";
 import Chat from "pages/Chat";
@@ -23,7 +23,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="*" element={<NotFound />} />
-            <Route path="/" element={<RequireAuth />}>
+            <Route element={<RequireAuth />}>
               <Route path="/chat" element={<Chat />} />
               <Route path="/assistant" element={<Assistants />} />
               <Route path="/completion" element={<Completions />} />

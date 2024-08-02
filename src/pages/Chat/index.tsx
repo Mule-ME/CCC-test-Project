@@ -1,19 +1,15 @@
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { ChatBox, ModelInfo, ChatMenu } from "components/Chat";
+import chatStyles from "./style";
+
 const Chat = () => {
-  const theme = useTheme();
+  const styles = chatStyles();
+
   return (
-    <Box
-      sx={{
-        bgcolor: theme.palette.secondary.light,
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <Box sx={styles.container}>
       <ChatMenu />
-      <Grid container sx={{ flex: 1 }}>
-        <Grid item xs={9.5} sx={{ alignItems: "stretch" }}>
+      <Grid container sx={styles.gridContainer}>
+        <Grid item xs={9.5} sx={styles.chatBoxGridItem}>
           <ChatBox />
         </Grid>
         <Grid item xs={2.5}>

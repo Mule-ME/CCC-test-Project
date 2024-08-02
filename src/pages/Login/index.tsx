@@ -1,22 +1,32 @@
-import React, { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { TextField, Button, Typography, Container, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
+import loginStyles from "./style";
 
-const Login: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const Login = () => {
+  const defaultFormFields = {
+    username: "",
+    password: "",
+  };
+
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { username, password } = formFields;
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
+
   const [error, setError] = useState("");
 
+  const styles = loginStyles();
   const navigate = useNavigate();
-  const cookies = new Cookies();
 
   const handleLogin = () => {
     // Mock backend authentication
     if (username === "user" && password === "password") {
       // Store token in localStorage
       localStorage.setItem("accessToken", "mockedAccessToken");
-      cookies.set("Token", "mockedAccessToken", { path: "/" });
 
       // Redirect to the home page
       navigate("/chat");
@@ -26,53 +36,50 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100vh",
-          padding: 3,
-        }}
-      >
-        <Typography variant="h4" gutterBottom>
-          Login
-        </Typography>
-        <TextField
-          label="Username"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && (
-          <Typography color="error" variant="body2" sx={{ mt: 2 }}>
-            {error}
+    <Box sx={styles.outerContainer}>
+      <Container maxWidth="xs">
+        <Box sx={styles.container}>
+          <Typography variant="h4" gutterBottom sx={styles.title} color="white">
+            Login
           </Typography>
-        )}
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={handleLogin}
-        >
-          Login
-        </Button>
-      </Box>
-    </Container>
+          <TextField
+            label="Username"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            required
+            name="username"
+            value={username}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            value={password}
+            required
+            name="password"
+            onChange={handleChange}
+          />
+          {error && (
+            <Typography color="error" variant="body2" sx={styles.errorText}>
+              {error}
+            </Typography>
+          )}
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={styles.loginButton}
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
