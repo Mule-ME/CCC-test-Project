@@ -46,7 +46,6 @@ function InputLabel(theme: Theme) {
       styleOverrides: {
         root: {
           color: theme.palette.text.primary,
-          // paddingTop: '4px', //new
         },
       },
     },
@@ -59,7 +58,6 @@ function MuiMenuList(theme: Theme) {
       styleOverrides: {
         root: {
           color: theme.palette.text.primary,
-          // paddingTop: '4px', //new
           backgroundColor: theme.palette.secondary.light,
         },
       },

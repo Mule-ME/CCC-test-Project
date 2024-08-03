@@ -73,6 +73,7 @@ const projectMenuStyles = (): Record<string, SxProps<Theme>> => {
 
     icon: {
       marginRight: 1,
+      fontSize: "medium",
     },
     infoIcon: {
       fontSize: "medium",
@@ -81,6 +82,7 @@ const projectMenuStyles = (): Record<string, SxProps<Theme>> => {
       display: "flex",
       alignItems: "center",
       gap: 1,
+      fontWeight: 600,
     },
   };
 };

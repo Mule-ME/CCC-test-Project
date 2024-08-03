@@ -50,7 +50,6 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    // Check URL and update sidebar state
     const updateSidebarState = (path: string) => {
       sideBarResources.forEach((res) => {
         res.children.forEach((child) => {
@@ -115,7 +114,14 @@ const SideBar = () => {
                         },
                       }}
                     >
-                      <Typography sx={styles.childTypography}>
+                      <Typography
+                        sx={styles.childTypography}
+                        fontWeight={
+                          open.child === `${res.title}-${child.title}`
+                            ? 600
+                            : 500
+                        }
+                      >
                         {child.title}
                       </Typography>
                     </ListItemButton>

@@ -20,7 +20,6 @@ const Select = ({
   return (
     <FormControl
       variant="outlined"
-      // fullWidth
       sx={styles.formControl}
     >
       <MuiSelect
