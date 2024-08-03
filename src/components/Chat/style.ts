@@ -1,6 +1,6 @@
-import { useTheme } from "@mui/material";
+import { SxProps, useTheme, Theme } from "@mui/material";
 
-const chatBoxStyles = () => {
+const chatBoxStyles = (): Record<string, SxProps<Theme>> => {
   const theme = useTheme();
   return {
     container: {
@@ -56,6 +56,7 @@ const chatBoxStyles = () => {
       borderColor: "transparent",
       "& .MuiOutlinedInput-root": {
         height: 85,
+        pt: 3,
         "& fieldset": {
           borderColor: theme.palette.grey[100],
         },
@@ -71,7 +72,7 @@ const chatBoxStyles = () => {
   };
 };
 
-const chatMenuStyles = () => {
+const chatMenuStyles = (): Record<string, SxProps<Theme>> => {
   const theme = useTheme();
 
   return {
@@ -136,6 +137,7 @@ const chatMenuStyles = () => {
       ":hover": {
         borderColor: theme.palette.common.white,
       },
+      fontWeight: 600,
     },
     iconButton: {
       backgroundColor: theme.palette.grey[200],
@@ -144,13 +146,13 @@ const chatMenuStyles = () => {
       },
     },
     unfoldMoreIcon: {
-      fontSize: "small",
+      fontSize: "medium",
       color: theme.palette.grey[900],
     },
   };
 };
 
-const modelInfoStyles = () => {
+const modelInfoStyles = (): Record<string, SxProps<Theme>> => {
   const theme = useTheme();
   return {
     container: {
@@ -193,12 +195,10 @@ const modelInfoStyles = () => {
     lockIcon: {
       color: theme.palette.common.white,
     },
-    privacyLink: {
-      color: theme.palette.primary.light,
-      textDecoration: "none",
-    },
+
     sliderLabel: {
       color: theme.palette.text.primary,
+      fontWeight: 500,
     },
   };
 };

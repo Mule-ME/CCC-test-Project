@@ -4,6 +4,8 @@ import { styled, SxProps, Typography, useTheme } from "@mui/material";
 const RightMenuButtonText = styled(Typography)<{ isActive: boolean }>(
   ({ theme, isActive }) => ({
     fontSize: 15,
+    fontWeight: isActive ? 600 : 500,
+
     color: isActive ? theme.palette.common.white : theme.palette.grey[200],
   })
 );
@@ -35,6 +37,7 @@ const appBarStyles = (): Record<string, SxProps<Theme>> => {
     },
     buttonText: {
       fontSize: 15,
+      fontWeight: 600,
       color: theme.palette.common.white,
     },
     listItemIcon: {

@@ -6,7 +6,7 @@ const textInputStyles = (): Record<string, SxProps<Theme>> => {
   return {
     label: {
       position: "absolute",
-      top: 10,
+      top: 9,
       left: 12,
       fontSize: 16,
       fontWeight: "bold",

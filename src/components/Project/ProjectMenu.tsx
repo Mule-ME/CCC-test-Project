@@ -32,7 +32,7 @@ const ProjectMenu = ({
   const menus = [
     {
       content: (
-        <Box sx={styles.projectBox}>
+        <Box sx={styles.projectBox} >
           {selectedProject}
           <Tooltip title={selectedProject} arrow>
             <InfoIcon sx={styles.infoIcon} />

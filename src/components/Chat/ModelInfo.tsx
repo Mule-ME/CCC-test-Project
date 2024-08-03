@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Slider, TextInput } from "components/core";
 import { sliderData } from "./config";
 import { modelInfoStyles } from "./style";
 
 const ModelInfo = () => {
+  const theme = useTheme();
   const styles = modelInfoStyles();
 
   const [values, setValues] = useState<Record<string, number>>(
@@ -78,9 +79,24 @@ const ModelInfo = () => {
             <Typography sx={styles.sliderLabel} fontSize={16}>
               API and playground requests will not be used to train our model.
               <br />
-              <Link to="/privacyPolicy" style={styles.privacyLink}>
-                Learn more
-              </Link>
+              <Box
+                sx={{
+                  "&:hover": {
+                    textDecoration: "underline",
+                    color: theme.palette.primary.light,
+                  },
+                }}
+              >
+                <Link
+                  to="/privacyPolicy"
+                  style={{
+                    color: theme.palette.primary.light,
+                    textDecoration: "none",
+                  }}
+                >
+                  Learn more
+                </Link>
+              </Box>
             </Typography>
           </Box>
         </Box>

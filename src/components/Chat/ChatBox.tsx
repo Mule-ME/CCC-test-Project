@@ -25,6 +25,7 @@ const ChatBox = () => {
           value={selectedOption}
           onChange={handleChange}
           options={options}
+          sx={{fontWeight:600}}
           endAdornment={
             <IconButton>
               <UnfoldMoreIcon sx={styles.unfoldMoreIcon} />
